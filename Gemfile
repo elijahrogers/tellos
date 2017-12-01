@@ -18,6 +18,8 @@ gem 'redis', '~> 3.0'
 gem 'devise'
 gem 'jquery-rails'
 gem 'materialize-sass'
+gem 'geocoder'
+gem 'yahoo_weather'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -1,4 +1,7 @@
+<span style='font-size:3em'><%= @weather.condition.temp %>&deg;</span><br />
+<%= @city %>
 <h1 style="text-align:center;display:inline"> Tellos </h1>
 <div id='clock'style="display:inline;font-size:3em;float:right"></div>
 <br />
+
 <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "waves-effect waves-light btn" %>
