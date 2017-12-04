@@ -7,4 +7,12 @@ class ApplicationController < ActionController::Base
     client = YahooWeather::Client.new
     @weather = client.fetch(2480201)
   end
+
+  private
+
+  def require_login
+    unless current_user
+      redirect_to unauthenticated_root_path
+    end
+  end
 end
