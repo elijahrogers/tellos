@@ -3,42 +3,38 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @project = Project.find(params[:project_id])
+    @tasks = @project.tasks
   end
 
   def show
   end
 
   def new
-    @task = Task.new
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.new
   end
 
   def edit
+    @project = Project.find(@task.project_id)
   end
 
   def create
-    @task = Task.new(task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.new(task_params)
+    if @task.save
+      # binding.pry
+      redirect_to project_task_path(id: @task.id, project_id: @task.project_id), notice: 'Task was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to project_task_path(@task.project_id), notice: 'Task was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -57,6 +53,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :complete, :user_id).merge(user_id: current_user.id)
+    params.require(:task).permit(:name, :complete).merge(user_id: current_user.id)
   end
 end

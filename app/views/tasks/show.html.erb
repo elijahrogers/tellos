@@ -9,8 +9,8 @@
     <tr>
       <td><%= @task.name %></td>
       <td><%= @task.complete %></td>
-      <td><%= link_to 'Edit', edit_task_path(@task) %></td>
-      <td><%= link_to 'Back', tasks_path %></td>
+      <td><%= link_to 'Edit', edit_project_task_path(@task) %></td>
+      <td><%= link_to 'Back', project_tasks_path %></td>
     </tr>
   </tbody>
 </table>
