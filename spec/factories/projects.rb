@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :project do
-    name "MyString"
+    sequence(:name) { |n| "Project #{n}" }
     horizon "MyString"
+    user
   end
 end
