@@ -10,7 +10,8 @@
       </ul>
     </div>
   <% end %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name, id: "project_name" %>
+  <%= form.label :name, for: "project_name" %>
   <%= form.text_field :horizon, id: "project_horizon" %>
   <%= form.label :horizon, for: "project_horizon" %>
   <div class="actions">

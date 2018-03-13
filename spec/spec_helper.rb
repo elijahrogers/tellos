@@ -1,4 +1,5 @@
 require 'simplecov'
+require 'capybara/rails'
 SimpleCov.start 'rails'
 require File.expand_path("../../config/environment", __FILE__)
 
