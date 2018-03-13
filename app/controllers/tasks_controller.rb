@@ -23,7 +23,6 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
     @task = @project.tasks.new(task_params)
     if @task.save
-      # binding.pry
       redirect_to project_task_path(id: @task.id, project_id: @task.project_id), notice: 'Task was successfully created.'
     else
       render :new
@@ -40,10 +39,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to tasks_url, notice: 'Task was successfully destroyed.'
   end
 
   private
