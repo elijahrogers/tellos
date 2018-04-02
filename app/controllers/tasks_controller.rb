@@ -1,53 +1,42 @@
 class TasksController < ApplicationController
   before_action :require_login
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, except: :show
 
   def index
-    @tasks = Task.all
+    @tasks = @project.tasks
   end
 
   def show
   end
 
   def new
-    @task = Task.new
+    @task = @project.tasks.new
   end
 
   def edit
   end
 
   def create
-    @task = Task.new(task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    @task = @project.tasks.new(task_params)
+    if @task.save
+      redirect_to project_task_path(id: @task.id, project_id: @task.project_id), notice: 'Task was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to project_path(@task.project_id), notice: 'Task was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to project_path(@project.id), notice: 'Task was successfully destroyed.'
   end
 
   private
@@ -56,7 +45,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def set_project
+    @project = @task ? @task.project : Project.find(params[:project_id])
+  end
+
   def task_params
-    params.require(:task).permit(:name, :complete, :user_id).merge(user_id: current_user.id)
+    params.require(:task).permit(:name, :complete).merge(user_id: current_user.id)
   end
 end

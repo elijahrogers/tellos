@@ -27,9 +27,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rubocop'
   gem 'shoulda'
-  gem 'factory_girl_rails'
-  gem 'simplecov', :require => false
+  gem 'factory_bot_rails'
+  gem 'simplecov', require: false
   gem 'rails_best_practices', require: false
+  gem 'capybara', '~> 2.18.0'
 end
 
 group :development do

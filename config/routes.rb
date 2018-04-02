@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :tasks
+  resources :projects do
+    resources :tasks
+  end
   devise_for :users
   devise_scope :user do
     authenticated :user do
