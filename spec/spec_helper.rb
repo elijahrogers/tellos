@@ -1,6 +1,4 @@
-require 'simplecov'
 require 'capybara/rails'
-SimpleCov.start 'rails'
 require File.expand_path("../../config/environment", __FILE__)
 
 RSpec.configure do |config|
