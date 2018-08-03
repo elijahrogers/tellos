@@ -31,6 +31,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'rails_best_practices', require: false
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :development do
