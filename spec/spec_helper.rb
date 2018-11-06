@@ -1,6 +1,4 @@
-require 'simplecov'
 require 'capybara/rails'
-SimpleCov.start 'rails'
 require File.expand_path("../../config/environment", __FILE__)
 
 RSpec.configure do |config|
@@ -15,4 +13,5 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.disable_monkey_patching!
   config.order = :random
+  config.include Capybara::DSL, type: :feature
 end
